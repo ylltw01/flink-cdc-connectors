@@ -40,6 +40,7 @@ under the License.
         <module>flink-sql-connector-mysql-cdc</module>
         <module>flink-sql-connector-postgres-cdc</module>
         <module>flink-format-changelog-json</module>
+        <module>flink-connector-sqlserver-cdc</module>
     </modules>
 
     <licenses>
@@ -182,7 +183,7 @@ under the License.
                 </configuration>
             </plugin>
 
-            <plugin>
+    <!--        <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.17</version>
@@ -209,7 +210,7 @@ under the License.
                     <logViolationsToConsole>true</logViolationsToConsole>
                     <failOnViolation>true</failOnViolation>
                 </configuration>
-            </plugin>
+            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
