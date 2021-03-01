@@ -24,6 +24,13 @@ import org.apache.kafka.connect.source.SourceRecord;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+/**
+ * SQLServer 官网
+ * https://docs.microsoft.com/en-us/sql/relational-databases/track-changes/about-change-data-capture-sql-server?view=sql-server-2017#change-data-capture-agent-jobs
+ * <p>
+ * https://docs.microsoft.com/zh-cn/sql/relational-databases/track-changes/about-change-data-capture-sql-server?view=sql-server-2017#change-data-capture-agent-jobs
+ * https://docs.microsoft.com/zh-cn/sql/relational-databases/system-stored-procedures/sys-sp-cdc-start-job-transact-sql?view=sql-server-2017
+ */
 public class SqlServerCdc {
     private Executor executor = Executors.newSingleThreadExecutor();
 
