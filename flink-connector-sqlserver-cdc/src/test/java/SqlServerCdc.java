@@ -45,7 +45,12 @@ import java.util.concurrent.Executors;
  * -- 第二步：确认debezium 能继续消费
  * -- 第三步：能继续消费后，disable 旧的 capture_instance
  * -- EXEC sys.sp_cdc_disable_table @source_schema = 'dbo', @source_name = 'sqlserver_cdc', @capture_instance = 'dbo_sqlserver_cdc';
+ * GO
+ *
  * <p>
+ * -- 查询SQLServer 开启的 capture_instance
+ * GO
+ * EXEC sys.sp_cdc_help_change_data_capture
  * GO
  */
 public class SqlServerCdc {
