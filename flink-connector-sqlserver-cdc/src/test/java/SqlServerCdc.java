@@ -30,6 +30,23 @@ import java.util.concurrent.Executors;
  * <p>
  * https://docs.microsoft.com/zh-cn/sql/relational-databases/track-changes/about-change-data-capture-sql-server?view=sql-server-2017#change-data-capture-agent-jobs
  * https://docs.microsoft.com/zh-cn/sql/relational-databases/system-stored-procedures/sys-sp-cdc-start-job-transact-sql?view=sql-server-2017
+ * <p>
+ * <p>
+ * SQLServer 修改了表结构：
+ * debezium 解决办法：https://debezium.io/documentation/reference/1.4/connectors/sqlserver.html#sqlserver-schema-evolution
+ * <p>
+ * 这里只写了SQL执行步骤，具体的 online 和 offline 参见官方链接和注意事项
+ * -- SQL 手动干预方案SQL
+ * use test;
+ * <p>
+ * GO
+ * -- 第一步：先将针对这个表旧的 capture_instance 创建一个新的 capture_instance
+ * -- EXEC sys.sp_cdc_enable_table @source_schema = 'dbo', @source_name = 'sqlserver_cdc', @role_name = NULL, @supports_net_changes = 0, @capture_instance = 'dbo_sqlserver_cdc_v2';
+ * -- 第二步：确认debezium 能继续消费
+ * -- 第三步：能继续消费后，disable 旧的 capture_instance
+ * -- EXEC sys.sp_cdc_disable_table @source_schema = 'dbo', @source_name = 'sqlserver_cdc', @capture_instance = 'dbo_sqlserver_cdc';
+ * <p>
+ * GO
  */
 public class SqlServerCdc {
     private Executor executor = Executors.newSingleThreadExecutor();
@@ -53,6 +70,7 @@ public class SqlServerCdc {
                 .with("database.dbname", "test")
                 .with("table.include.list", "dbo.sqlserver_cdc")
                 .with("database.server.name", "sqlserver-cdc-8.65")
+                .with("snapshot.mode", "initial")
                 .with("database.history", "io.debezium.relational.history.FileDatabaseHistory")
                 .with("database.history.file.filename", "/Users/noone/IdeaProjects/flink-cdc-connectors/flink-connector-sqlserver-cdc/src/test/offset/dbhistory.dat")
                 .build();
