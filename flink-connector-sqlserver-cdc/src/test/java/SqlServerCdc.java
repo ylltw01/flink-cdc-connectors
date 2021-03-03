@@ -32,6 +32,32 @@ import java.util.concurrent.Executors;
  * https://docs.microsoft.com/zh-cn/sql/relational-databases/system-stored-procedures/sys-sp-cdc-start-job-transact-sql?view=sql-server-2017
  * <p>
  * <p>
+ * SQLServer 启用CDC：
+ * 第一步：数据库开启CDC：
+ * USE MyDB
+ * GO
+ * EXEC sys.sp_cdc_enable_db
+ * GO
+ * <p>
+ * 第二步：表开启CDC
+ * -- USE MyDB
+ * -- GO
+ * -- EXEC sys.sp_cdc_enable_table
+ * --  @source_schema = N'dbo',
+ * --  @source_name   = N'MyTable',
+ * --  @role_name     = N'MyRole',
+ * --  @filegroup_name = N'MyDB_CT',
+ * -- @supports_net_changes = 0
+ * -- GO
+ * <p>
+ * 第三步：开启SQLServer Agent
+ * USE test; -- 数据库
+ * GO
+ * EXEC sys.sp_cdc_start_job;
+ * GO
+ *
+ *
+ * <p>
  * SQLServer 修改了表结构：
  * debezium 解决办法：https://debezium.io/documentation/reference/1.4/connectors/sqlserver.html#sqlserver-schema-evolution
  * <p>
